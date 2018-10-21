@@ -1,0 +1,20 @@
+<div *ngIf="post" class="post">
+
+  <img *ngIf="post.type === 'image' || post.type === 'gifv'" src="{{post.url}}" class="featured-img">
+  <vg-player
+    *ngIf="post.type === 'video' && post.url"
+    (click)="$event.stopPropagation()"
+  >
+    <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+      <source src="{{post.url}}" type="video/mp4">
+    </video>
+  </vg-player>
+  <div *ngIf="post.type === 'iframe'" [innerHTML]="iframeHtml"></div>
+
+  <div class="post-content">
+    <h1>{{post.title}}</h1>
+    <span class="meta">
+      <strong>Posted by:</strong> {{post.author}} on {{post.date}} @ {{post.time}}
+    </span>
+  </div>
+</div>
